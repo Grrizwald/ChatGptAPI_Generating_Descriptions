@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if question %}
+    <h3>Pytanie: {{question}}</h3>
+    <br/>
+{% endif %}
+<div class="card">
+  <div class="card-header">
+    ChatGpt
+  </div>
+  <div class="card-body">
+    {% if response %}
+        {{ past_responses|safe }}
+    {% endif %}
+    <br/><br/>
+  </div>
+</div>
+
+<br/>
+<br/>
+{% if past_responses %}
+<form method=POST action="{% url 'home' %}">
+    {% csrf_token %}
+    
+  <div class="mb-3">
+      <input type="hidden" name="past_responses", value="{{past_responses}}">
+    </div>
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Podaj przedmiot" name="question">
+  </div>
+
+  <button type="submit" class="btn btn-dark">Generuj</button>
+</form>
+
+{% else %}
+<form method=POST action="{% url 'home' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="hidden" name="past_responses", value="1new1">
+    </div>
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Podaj przedmiot" name="question">
+  </div>
+
+  <button type="submit" class="btn btn-dark">Generuj</button>
+</form>
+{% endif %}
+{% endblock %}
