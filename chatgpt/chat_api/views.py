@@ -5,7 +5,6 @@ from .models import Past
 from django.core.paginator import Paginator
 
 def home(request):
-    #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
     if request.method == "POST":
         question = request.POST['question']
         past_responses = request.POST['past_responses']
@@ -16,7 +15,7 @@ def home(request):
             messages.warning(request, f'Odpowiedź na pytanie "{question}" została już udzielona.')
 
         else:
-            openai.api_key="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"
+            openai.api_key="#CHAT_GPT_API_KEY"
             openai.Model.list()
             try:
                 response = openai.Completion.create(
